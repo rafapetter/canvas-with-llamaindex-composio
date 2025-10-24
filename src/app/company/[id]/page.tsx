@@ -220,33 +220,35 @@ export default function CompanyDetailsPage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="border-b p-4">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <Link href="/companies">
-            <Button variant="ghost" size="sm" className="gap-2">
-              <ArrowLeft className="h-4 w-4" />
-              Back to Companies
-            </Button>
-          </Link>
-          <div className="flex gap-2">
-            <Button
-              size="sm"
-              className="gap-2"
-              onClick={() => router.push(`/pitch/${id}`)}
-            >
-              <Play className="h-4 w-4" />
-              Start Pitch
-            </Button>
-            <Link href={`/pitch-score?company=${id}`}>
-              <Button size="sm" variant="outline">View Pitch Scores</Button>
+      <div className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <Link href="/companies">
+              <Button variant="ghost" size="sm" className="gap-2">
+                <ArrowLeft className="h-4 w-4" />
+                Back to Companies
+              </Button>
             </Link>
+            <div className="flex gap-3">
+              <Link href={`/pitch-score?company=${id}`}>
+                <Button size="sm" variant="outline">View Pitch Scores</Button>
+              </Link>
+              <Button
+                size="sm"
+                className="gap-2"
+                onClick={() => router.push(`/pitch/${id}`)}
+              >
+                <Play className="h-4 w-4" />
+                Start Pitch
+              </Button>
+            </div>
           </div>
         </div>
       </div>
 
       <div className="flex h-[calc(100vh-73px)]">
         {/* Chat Section - Left Side */}
-        <div className="w-1/2 border-r">
+        <div className="w-1/2 border-r bg-muted/30">
           <CopilotChat
             className="h-full"
             instructions={`You are a sales coaching AI helping sellers pitch to ${company.name}. Guide them through the pitch process, help them handle objections, and close deals.`}
@@ -258,74 +260,80 @@ export default function CompanyDetailsPage({ params }: PageProps) {
         </div>
 
         {/* Company Details - Right Side */}
-        <div className="w-1/2 overflow-y-auto p-6">
-          <div className="max-w-2xl mx-auto space-y-6">
+        <div className="w-1/2 overflow-y-auto">
+          <div className="max-w-2xl mx-auto p-8 space-y-6">
             {/* Company Header */}
-            <div className="flex items-start gap-4">
-              <Building2 className="h-12 w-12 text-muted-foreground mt-1" />
-              <div className="flex-1">
-                <h1 className="text-2xl font-bold">{company.name}</h1>
-                <p className="text-muted-foreground">{company.industry}</p>
-                <div className="flex items-center gap-4 mt-2 text-sm">
-                  <span className="flex items-center gap-1">
-                    <Users className="h-4 w-4" />
-                    {company.employees}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <Globe className="h-4 w-4" />
-                    {company.website}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <Briefcase className="h-4 w-4" />
-                    {company.jobOpenings} openings
-                  </span>
+            <div className="space-y-4">
+              <div className="flex items-start gap-4">
+                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary shrink-0">
+                  <Building2 className="h-8 w-8" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h1 className="mb-2 truncate">{company.name}</h1>
+                  <p className="text-muted-foreground text-base mb-3">{company.industry}</p>
+                  <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                    <span className="flex items-center gap-2">
+                      <Users className="h-4 w-4" />
+                      {company.employees}
+                    </span>
+                    <span className="flex items-center gap-2">
+                      <Globe className="h-4 w-4" />
+                      {company.website}
+                    </span>
+                    <span className="flex items-center gap-2">
+                      <Briefcase className="h-4 w-4" />
+                      {company.jobOpenings} openings
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Company Description */}
-            <div className="rounded-lg border bg-card p-4">
-              <h3 className="font-semibold mb-2">About</h3>
-              <p className="text-sm text-muted-foreground">{company.description}</p>
+            <div className="rounded-2xl border bg-card p-6 shadow-sm">
+              <h3 className="mb-3">About</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{company.description}</p>
             </div>
 
             {/* Company Needs */}
-            <div className="rounded-lg border bg-card p-4">
-              <h3 className="font-semibold mb-3 flex items-center gap-2">
-                <Target className="h-5 w-5" />
-                Current Needs
-              </h3>
-              <ul className="space-y-2">
+            <div className="rounded-2xl border bg-card p-6 shadow-sm">
+              <div className="flex items-center gap-2 mb-4">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-green-500/10 text-green-600">
+                  <Target className="h-4 w-4" />
+                </div>
+                <h3 className="text-lg">Current Needs</h3>
+              </div>
+              <ul className="space-y-3">
                 {company.needs.map((need, index) => (
-                  <li key={index} className="flex items-start gap-2 text-sm">
-                    <span className="text-green-500 mt-0.5">•</span>
-                    <span>{need}</span>
+                  <li key={index} className="flex items-start gap-3 text-sm">
+                    <div className="h-1.5 w-1.5 rounded-full bg-green-500 mt-2 shrink-0" />
+                    <span className="text-foreground">{need}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
             {/* Challenges */}
-            <div className="rounded-lg border bg-card p-4">
-              <h3 className="font-semibold mb-3">Pain Points & Challenges</h3>
-              <ul className="space-y-2">
+            <div className="rounded-2xl border bg-card p-6 shadow-sm">
+              <h3 className="mb-4">Pain Points & Challenges</h3>
+              <ul className="space-y-3">
                 {company.challenges.map((challenge, index) => (
-                  <li key={index} className="flex items-start gap-2 text-sm">
-                    <span className="text-red-500 mt-0.5">•</span>
-                    <span>{challenge}</span>
+                  <li key={index} className="flex items-start gap-3 text-sm">
+                    <div className="h-1.5 w-1.5 rounded-full bg-orange-500 mt-2 shrink-0" />
+                    <span className="text-foreground">{challenge}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
             {/* Current Solutions */}
-            <div className="rounded-lg border bg-card p-4">
-              <h3 className="font-semibold mb-3">Current Tech Stack</h3>
+            <div className="rounded-2xl border bg-card p-6 shadow-sm">
+              <h3 className="mb-4">Current Tech Stack</h3>
               <div className="flex flex-wrap gap-2">
                 {company.currentSolutions.map((solution, index) => (
                   <span
                     key={index}
-                    className="inline-flex items-center rounded-md bg-secondary px-2.5 py-0.5 text-sm"
+                    className="inline-flex items-center rounded-lg bg-secondary px-3 py-1.5 text-sm font-medium text-secondary-foreground"
                   >
                     {solution}
                   </span>
@@ -334,20 +342,22 @@ export default function CompanyDetailsPage({ params }: PageProps) {
             </div>
 
             {/* Decision Makers */}
-            <div className="rounded-lg border bg-card p-4">
-              <h3 className="font-semibold mb-3">Key Decision Makers</h3>
-              <div className="space-y-3">
+            <div className="rounded-2xl border bg-card p-6 shadow-sm">
+              <h3 className="mb-5">Key Decision Makers</h3>
+              <div className="space-y-4">
                 {company.decisionMakers.map((person, index) => (
-                  <div key={index} className="flex items-start gap-3">
-                    <div className="h-10 w-10 rounded-full bg-secondary flex items-center justify-center">
-                      <span className="text-sm font-medium">
+                  <div key={index} className="flex items-start gap-4 p-4 rounded-xl bg-muted/50 transition-colors hover:bg-muted">
+                    <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                      <span className="text-sm font-semibold text-primary">
                         {person.name.split(" ").map(n => n[0]).join("")}
                       </span>
                     </div>
-                    <div className="flex-1">
-                      <p className="font-medium text-sm">{person.name}</p>
-                      <p className="text-xs text-muted-foreground">{person.role}</p>
-                      <p className="text-xs text-muted-foreground mt-1">Focus: {person.focus}</p>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-semibold text-sm mb-0.5">{person.name}</p>
+                      <p className="text-xs text-muted-foreground mb-2">{person.role}</p>
+                      <p className="text-xs text-muted-foreground leading-relaxed">
+                        <span className="font-medium">Focus:</span> {person.focus}
+                      </p>
                     </div>
                   </div>
                 ))}

@@ -4,68 +4,68 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Updated to Apple-inspired B2B SaaS color palette */
-  --background: #f8fafc; /* Light gray for overall background */
-  --foreground: #374151; /* Dark gray for primary text */
+  /* Refined minimalist B2B SaaS color palette */
+  --background: #fafbfc; /* Ultra-light gray for modern feel */
+  --foreground: #111827; /* Near-black for crisp text */
   --card: #ffffff; /* Pure white card background */
-  --card-foreground: #374151; /* Dark gray card text */
-  --primary: #374151; /* Primary button background */
-  --primary-foreground: #ffffff; /* Primary button text */
-  --secondary: #6366f1; /* Blue accent color */
-  --secondary-foreground: #ffffff; /* Secondary text */
-  --muted: #f8fafc; /* Muted background */
-  --muted-foreground: #4b5563; /* Muted text */
-  --accent: #6366f1; /* Blue accent for highlights */
-  --accent-foreground: #ffffff; /* Accent text */
-  --destructive: #be123c; /* Error messages */
+  --card-foreground: #111827; /* Near-black card text */
+  --primary: #2563eb; /* Modern blue for primary actions */
+  --primary-foreground: #ffffff; /* White text on primary */
+  --secondary: #f3f4f6; /* Very light gray for secondary */
+  --secondary-foreground: #1f2937; /* Dark text on secondary */
+  --muted: #f9fafb; /* Subtle muted background */
+  --muted-foreground: #6b7280; /* Medium gray for secondary text */
+  --accent: #2563eb; /* Blue accent for highlights */
+  --accent-foreground: #ffffff; /* White text on accent */
+  --destructive: #dc2626; /* Clean red for errors */
   --destructive-foreground: #ffffff;
-  --border: #e5e7eb; /* Light gray borders */
-  --input: #ffffff; /* Input background */
-  --ring: rgba(99, 102, 241, 0.5); /* Blue focus ring */
-  --chart-1: #6366f1;
-  --chart-2: #4b5563;
-  --chart-3: #be123c;
-  --chart-4: #0891b2;
+  --border: #e5e7eb; /* Subtle borders */
+  --input: #ffffff; /* White input background */
+  --ring: rgba(37, 99, 235, 0.2); /* Subtle blue focus ring */
+  --chart-1: #2563eb;
+  --chart-2: #10b981;
+  --chart-3: #f59e0b;
+  --chart-4: #8b5cf6;
   --chart-5: #ec4899;
-  --radius: 0.5rem; /* Subtle corner rounding */
-  --sidebar: #ffffff; /* Sidebar background */
-  --sidebar-foreground: #374151; /* Sidebar text */
-  --sidebar-primary: #f8fafc; /* Sidebar primary background */
-  --sidebar-primary-foreground: #374151; /* Sidebar primary text */
-  --sidebar-accent: #6366f1; /* Sidebar accent */
-  --sidebar-accent-foreground: #ffffff; /* Sidebar accent text */
-  --sidebar-border: #e5e7eb; /* Sidebar border */
-  --sidebar-ring: rgba(99, 102, 241, 0.5); /* Sidebar focus ring */
+  --radius: 0.75rem; /* Slightly more rounded for modern feel */
+  --sidebar: #ffffff; /* White sidebar */
+  --sidebar-foreground: #111827; /* Dark sidebar text */
+  --sidebar-primary: #f9fafb; /* Very subtle sidebar background */
+  --sidebar-primary-foreground: #111827; /* Dark sidebar text */
+  --sidebar-accent: #2563eb; /* Blue sidebar accent */
+  --sidebar-accent-foreground: #ffffff; /* White sidebar accent text */
+  --sidebar-border: #e5e7eb; /* Subtle sidebar border */
+  --sidebar-ring: rgba(37, 99, 235, 0.2); /* Subtle sidebar focus ring */
   --font-geist: "Geist", sans-serif;
   --font-manrope: "Manrope", sans-serif;
 }
 
 .dark {
-  --background: #1f2937;
+  --background: #0f172a;
   --foreground: #f8fafc;
-  --card: #374151;
+  --card: #1e293b;
   --card-foreground: #f8fafc;
-  --primary: #6366f1;
+  --primary: #3b82f6;
   --primary-foreground: #ffffff;
-  --secondary: #374151;
+  --secondary: #1e293b;
   --secondary-foreground: #f8fafc;
-  --muted: #4b5563;
-  --muted-foreground: #9ca3af;
-  --accent: #6366f1;
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
+  --accent: #3b82f6;
   --accent-foreground: #ffffff;
-  --destructive: #be123c;
+  --destructive: #ef4444;
   --destructive-foreground: #ffffff;
-  --border: #4b5563;
-  --input: #374151;
-  --ring: rgba(99, 102, 241, 0.5);
-  --sidebar: #374151;
+  --border: #334155;
+  --input: #1e293b;
+  --ring: rgba(59, 130, 246, 0.3);
+  --sidebar: #1e293b;
   --sidebar-foreground: #f8fafc;
-  --sidebar-primary: #4b5563;
+  --sidebar-primary: #334155;
   --sidebar-primary-foreground: #f8fafc;
-  --sidebar-accent: #6366f1;
+  --sidebar-accent: #3b82f6;
   --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #4b5563;
-  --sidebar-ring: rgba(99, 102, 241, 0.5);
+  --sidebar-border: #334155;
+  --sidebar-ring: rgba(59, 130, 246, 0.3);
 }
 
 @theme inline {
@@ -114,7 +114,19 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+  }
+  h1 {
+    @apply text-3xl lg:text-4xl;
+  }
+  h2 {
+    @apply text-2xl lg:text-3xl;
+  }
+  h3 {
+    @apply text-xl lg:text-2xl;
   }
 }
 
@@ -122,6 +134,8 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body,
@@ -154,23 +168,23 @@ html {
   }
   .copilotKitMessage {
     &, & * {
-      @apply font-sans text-sm! subpixel-antialiased leading-normal text-primary!;
+      @apply font-sans text-sm! antialiased leading-relaxed!;
     }
     &.copilotKitAssistantMessage {
-      @apply rounded-bl-none! pl-3! mb-10! border-1 border-accent/50! bg-accent/10!;
+      @apply rounded-2xl! rounded-bl-sm! px-4! py-3! mb-6! border border-accent/20! bg-accent/5! shadow-sm!;
       .copilotKitMessageControls {
-        @apply mt-3! gap-x-2.5! opacity-100!;
+        @apply mt-3! gap-x-2! opacity-100!;
         &, & * {
-          @apply text-primary/50! transition-colors!;
+          @apply text-muted-foreground! transition-all! duration-200!;
         }
         & button:hover, & button:hover * {
           @apply text-accent!;
-          transform: scale(1) !important;
+          transform: scale(1.05) !important;
         }
       }
     }
     &.copilotKitUserMessage {
-      @apply rounded-br-none! pr-3! mb-4! border-1 border-primary/25! bg-primary/5!;
+      @apply rounded-2xl! rounded-br-sm! px-4! py-3! mb-4! border border-primary/20! bg-primary/10! shadow-sm!;
     }
   }
 }

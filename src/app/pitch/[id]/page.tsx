@@ -303,23 +303,25 @@ export default function PitchPage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="border-b p-4">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <Link href={`/company/${id}`}>
-            <Button variant="ghost" size="sm" className="gap-2">
-              <ArrowLeft className="h-4 w-4" />
-              Back to Company
-            </Button>
-          </Link>
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2">
-              <Timer className="h-4 w-4" />
-              <span className={`font-mono ${timeRemaining < 30 ? "text-red-500" : ""}`}>
-                {formatTime(timeRemaining)}
-              </span>
-            </div>
-            <div className="text-sm">
-              Score: {pitchStatus?.score_percentage.toFixed(0) || 0}%
+      <div className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="max-w-7xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <Link href={`/company/${id}`}>
+              <Button variant="ghost" size="sm" className="gap-2">
+                <ArrowLeft className="h-4 w-4" />
+                Back to Company
+              </Button>
+            </Link>
+            <div className="flex items-center gap-6">
+              <div className="flex items-center gap-2.5 px-4 py-2 rounded-xl bg-muted/50">
+                <Timer className={`h-4 w-4 ${timeRemaining < 30 ? "text-destructive" : "text-muted-foreground"}`} />
+                <span className={`font-mono font-semibold text-base ${timeRemaining < 30 ? "text-destructive" : "text-foreground"}`}>
+                  {formatTime(timeRemaining)}
+                </span>
+              </div>
+              <div className="px-4 py-2 rounded-xl bg-primary/10 text-primary font-semibold text-sm">
+                Score: {pitchStatus?.score_percentage.toFixed(0) || 0}%
+              </div>
             </div>
           </div>
         </div>
@@ -327,9 +329,9 @@ export default function PitchPage({ params }: PageProps) {
 
       <div className="flex h-[calc(100vh-73px)]">
         {/* Chat Section - Left Side */}
-        <div className="w-2/3 border-r flex flex-col">
-          <div className="flex-1 overflow-y-auto p-4">
-            <div className="max-w-3xl mx-auto space-y-4">
+        <div className="w-2/3 border-r flex flex-col bg-muted/20">
+          <div className="flex-1 overflow-y-auto p-6">
+            <div className="max-w-3xl mx-auto space-y-5">
               {messages.map((message, index) => (
                 <div
                   key={index}
@@ -338,20 +340,27 @@ export default function PitchPage({ params }: PageProps) {
                   }`}
                 >
                   <div
-                    className={`max-w-[80%] rounded-lg p-4 ${
+                    className={`max-w-[85%] rounded-2xl px-5 py-3.5 shadow-sm ${
                       message.role === "user"
-                        ? "bg-primary text-primary-foreground"
-                        : "bg-muted"
+                        ? "bg-primary text-primary-foreground rounded-br-sm"
+                        : "bg-card border rounded-bl-sm"
                     }`}
                   >
-                    <p className="text-sm">{message.content}</p>
+                    <p className="text-sm leading-relaxed">{message.content}</p>
                   </div>
                 </div>
               ))}
               {isLoading && (
                 <div className="flex justify-start">
-                  <div className="bg-muted rounded-lg p-4">
-                    <p className="text-sm">Evaluating your pitch...</p>
+                  <div className="bg-card border rounded-2xl rounded-bl-sm px-5 py-3.5 shadow-sm">
+                    <div className="flex items-center gap-2">
+                      <div className="flex gap-1">
+                        <div className="h-2 w-2 rounded-full bg-muted-foreground animate-bounce" style={{ animationDelay: '0ms' }} />
+                        <div className="h-2 w-2 rounded-full bg-muted-foreground animate-bounce" style={{ animationDelay: '150ms' }} />
+                        <div className="h-2 w-2 rounded-full bg-muted-foreground animate-bounce" style={{ animationDelay: '300ms' }} />
+                      </div>
+                      <p className="text-sm text-muted-foreground ml-1">Evaluating your pitch...</p>
+                    </div>
                   </div>
                 </div>
               )}
@@ -360,13 +369,13 @@ export default function PitchPage({ params }: PageProps) {
           </div>
 
           {/* Input Section */}
-          <div className="border-t p-4">
+          <div className="border-t bg-background p-5">
             <form
               onSubmit={(e) => {
                 e.preventDefault();
                 sendMessage();
               }}
-              className="max-w-3xl mx-auto flex gap-2"
+              className="max-w-3xl mx-auto flex gap-3"
             >
               <input
                 type="text"
@@ -374,9 +383,14 @@ export default function PitchPage({ params }: PageProps) {
                 onChange={(e) => setInputMessage(e.target.value)}
                 placeholder={isPitchEnded ? "Pitch ended" : "Type your pitch here..."}
                 disabled={isPitchEnded || isLoading}
-                className="flex-1 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                className="flex-1 rounded-xl border border-input bg-background px-4 py-3 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-all"
               />
-              <Button type="submit" disabled={isPitchEnded || isLoading || !inputMessage.trim()}>
+              <Button
+                type="submit"
+                disabled={isPitchEnded || isLoading || !inputMessage.trim()}
+                size="lg"
+                className="px-6"
+              >
                 <Send className="h-4 w-4" />
               </Button>
             </form>
@@ -384,58 +398,63 @@ export default function PitchPage({ params }: PageProps) {
         </div>
 
         {/* Criteria Tracking - Right Side */}
-        <div className="w-1/3 p-6 overflow-y-auto">
-          <div className="space-y-6">
+        <div className="w-1/3 p-8 overflow-y-auto bg-background">
+          <div className="space-y-8">
             <div>
-              <h2 className="text-xl font-semibold mb-2">Pitch Progress</h2>
-              <div className="relative">
-                <Progress value={pitchStatus?.score_percentage || 0} className="h-3" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-xs font-medium text-white">
-                    {pitchStatus?.score_percentage.toFixed(0) || 0}%
-                  </span>
-                </div>
+              <h2 className="text-lg font-semibold mb-4 tracking-tight">Pitch Progress</h2>
+              <div className="relative mb-4">
+                <Progress value={pitchStatus?.score_percentage || 0} className="h-4" />
               </div>
-              <div className="flex justify-between text-sm mt-2">
-                <span className="text-muted-foreground">
+              <div className="flex justify-between items-center text-sm">
+                <span className="text-muted-foreground font-medium">
                   {pitchStatus?.score_percentage.toFixed(0) || 0}% Complete
                 </span>
-                <span className={`font-medium ${
-                  (pitchStatus?.score_percentage || 0) >= 60 ? 'text-green-600' : 'text-orange-600'
+                <span className={`font-semibold px-3 py-1 rounded-lg ${
+                  (pitchStatus?.score_percentage || 0) >= 60
+                    ? 'bg-green-500/10 text-green-700'
+                    : 'bg-orange-500/10 text-orange-700'
                 }`}>
-                  {pitchStatus?.is_passing ? '✅ PASSING' : '60% Required'}
+                  {pitchStatus?.is_passing ? 'PASSING' : '60% Required'}
                 </span>
               </div>
             </div>
 
             <div>
-              <h3 className="font-semibold mb-4">Evaluation Criteria</h3>
+              <h3 className="font-semibold mb-5 text-base tracking-tight">Evaluation Criteria</h3>
               <div className="space-y-3">
-                {Object.entries(criteriaLabels).map(([key, label]) => (
-                  <div key={key} className="flex items-center gap-3">
-                    {pitchStatus?.criteria_status[key as keyof PitchCriteria] ? (
-                      <CheckCircle2 className="h-5 w-5 text-green-500" />
-                    ) : (
-                      <Circle className="h-5 w-5 text-muted-foreground" />
-                    )}
-                    <span
-                      className={`text-sm ${
-                        pitchStatus?.criteria_status[key as keyof PitchCriteria]
-                          ? "font-medium"
-                          : "text-muted-foreground"
+                {Object.entries(criteriaLabels).map(([key, label]) => {
+                  const isComplete = pitchStatus?.criteria_status[key as keyof PitchCriteria];
+                  return (
+                    <div
+                      key={key}
+                      className={`flex items-center gap-3 p-3 rounded-xl transition-all ${
+                        isComplete ? 'bg-green-50 border border-green-200' : 'bg-muted/30'
                       }`}
                     >
-                      {label}
-                    </span>
-                  </div>
-                ))}
+                      {isComplete ? (
+                        <CheckCircle2 className="h-5 w-5 text-green-600 shrink-0" />
+                      ) : (
+                        <Circle className="h-5 w-5 text-muted-foreground/50 shrink-0" />
+                      )}
+                      <span
+                        className={`text-sm ${
+                          isComplete
+                            ? "font-medium text-green-900"
+                            : "text-muted-foreground"
+                        }`}
+                      >
+                        {label}
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
             </div>
 
             {isPitchEnded && (
-              <div className="rounded-lg border bg-card p-4">
+              <div className="rounded-2xl border bg-card p-6 shadow-sm">
                 <h3 className="font-semibold mb-2">Pitch Complete!</h3>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-muted-foreground leading-relaxed">
                   {pitchStatus?.is_passing
                     ? "Congratulations! You've met the criteria."
                     : "Time's up! Redirecting to results..."}

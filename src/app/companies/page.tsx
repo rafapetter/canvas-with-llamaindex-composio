@@ -86,11 +86,11 @@ export default function CompaniesPage() {
   };
 
   return (
-    <div className="min-h-screen p-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">Companies</h1>
-          <p className="text-muted-foreground">
+    <div className="min-h-screen bg-background">
+      <div className="max-w-7xl mx-auto px-6 py-12">
+        <div className="mb-12">
+          <h1 className="mb-3">Companies</h1>
+          <p className="text-muted-foreground text-lg">
             Browse companies and start your pitch journey
           </p>
         </div>
@@ -102,59 +102,59 @@ export default function CompaniesPage() {
               href={`/company/${company.id}`}
               className="group"
             >
-              <div className="rounded-lg border bg-card p-6 transition-all hover:shadow-lg">
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <Building2 className="h-8 w-8 text-muted-foreground" />
-                    <div>
-                      <h3 className="text-lg font-semibold">{company.name}</h3>
-                      <p className="text-sm text-muted-foreground">
-                        {company.industry}
-                      </p>
+              <div className="relative h-full rounded-2xl border bg-card p-6 transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 hover:-translate-y-1 hover:border-primary/20">
+                <div className="mb-6">
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary shrink-0">
+                      <Building2 className="h-6 w-6" />
                     </div>
+                    <ArrowRight className="h-5 w-5 text-muted-foreground opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-1" />
                   </div>
-                  <ArrowRight className="h-5 w-5 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
+                  <h3 className="font-semibold text-lg mb-1 tracking-tight">
+                    {company.name}
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    {company.industry}
+                  </p>
                 </div>
 
-                <div className="space-y-3">
-                  <div className="flex items-center gap-2 text-sm">
-                    <Users className="h-4 w-4 text-muted-foreground" />
+                <div className="space-y-3 mb-5">
+                  <div className="flex items-center gap-2.5 text-sm text-muted-foreground">
+                    <Users className="h-4 w-4 shrink-0" />
                     <span>{company.employees} employees</span>
                   </div>
 
-                  <div className="flex items-center gap-2 text-sm">
-                    <Briefcase className="h-4 w-4 text-muted-foreground" />
+                  <div className="flex items-center gap-2.5 text-sm text-muted-foreground">
+                    <Briefcase className="h-4 w-4 shrink-0" />
                     <span>{company.jobOpenings} job openings</span>
                   </div>
+                </div>
 
-                  <div className="flex items-center justify-between">
-                    <span
-                      className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${getStatusColor(
-                        company.status
-                      )}`}
-                    >
-                      {company.status.charAt(0).toUpperCase() + company.status.slice(1)}
-                    </span>
-                    <Button
-                      size="sm"
-                      variant="ghost"
-                      className="opacity-0 group-hover:opacity-100 transition-opacity"
-                    >
-                      Start Pitch
-                    </Button>
-                  </div>
+                <div className="flex items-center justify-between pt-4 border-t">
+                  <span
+                    className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-medium ${getStatusColor(
+                      company.status
+                    )}`}
+                  >
+                    {company.status.charAt(0).toUpperCase() + company.status.slice(1)}
+                  </span>
+                  <span className="text-xs font-medium text-primary opacity-0 transition-opacity group-hover:opacity-100">
+                    View Details →
+                  </span>
                 </div>
               </div>
             </Link>
           ))}
         </div>
 
-        <div className="mt-12 text-center">
-          <h2 className="text-xl font-semibold mb-2">Can't find your target company?</h2>
-          <p className="text-muted-foreground mb-4">
-            Request to add a new company to our platform
-          </p>
-          <Button>Request New Company</Button>
+        <div className="mt-16 text-center rounded-2xl border bg-card p-12">
+          <div className="max-w-md mx-auto">
+            <h2 className="mb-3">Can't find your target company?</h2>
+            <p className="text-muted-foreground mb-6">
+              Request to add a new company to our platform
+            </p>
+            <Button size="lg">Request New Company</Button>
+          </div>
         </div>
       </div>
 
